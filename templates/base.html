@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Y-str matching</title>
+<meta name="keywords" content="Y-str matching,Y-snp matching" />
+<meta name="description" content="input y-strs you can mach Y-snp" />
+<style type="text/css">
+<!--
+body {background: #444;font-family: Helvetica, Arial, sans-serif;}
+ul, ol, dl {padding: 0;margin: 0;}
+h1, h2, h3, h4, h5, h6, p {margin-top: 0;padding-right: 15px;padding-left: 15px;}
+a img {border: none;}
+a:link {color: #42413C;text-decoration: underline;}
+a:visited {color: #6E6C64;text-decoration: underline;}
+a:hover, a:active, a:focus {text-decoration: none;}
+.container {width: 960px;background: #FFF;margin: 0 auto;}
+.header {background: #ADB96E;height:50px;}
+.sidebar1 {float: left;width: 260px;background: #EADCAE;padding-bottom: 10px;}
+.content {padding: 10px 0;width: 700px;float: right;}
+.content td{border-bottom:#ddd 1px solid;}
+.footer {padding: 10px 0;background: #CCC49F;position: relative;clear: both;text-align: center;}
+.sidebar1 ul li{display:inline-block}
+.sidebar1 input[type=text]{width:100px;}
+.sidebar1 table{width:100%;}
+.sidebar1 table th{width:120px;}
+-->
+</style>
+<script type="text/javascript">
+function show_result(){
+    document.getElementById("result_div").style.display = "none";
+    document.getElementById("details_div").style.display = "block";
+}
+function show_details(){
+    document.getElementById("result_div").style.display = "block";
+    document.getElementById("details_div").style.display = "none";
+}
+</script>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="header"><h2>Y-str matching</h2></div>
+  <div class="sidebar1">
+        <form action="" method="post">
+	  {% csrf_token %} 
+            <div style="text-align:center"><input type="submit" value="匹配"></div>
+            <table>
+                {{ f.as_table }}
+            </table>
+            <div style="text-align:center"><input type="submit" value="匹配"></div>
+        </form>
+  <!-- end .sidebar1 --></div>
+
+<div class="content">
+{% if ystr %}
+<div id="buttons" style="text-align: center;">
+    <input type="button" onclick="javascript:show_details();" value="查看结果" />
+    <input type="button" onclick="javascript:show_result();" value="详细数据" />
+</div>
+<div id="result_div">
+<label><textarea name="textarea" id="textarea" cols="45" rows="30" style="width:95%;height:450px;">{% if blue %}{% for b in blue %}
+{% for r in ystr %}{{ r }}
+{% endfor %}
+{% endfor %}{% endif %}
+{% for r in ystr %}{{ r }}
+{% endfor %}</textarea></label>
+</div>
+<div id="details_div" style="display:none;">
+<table style="text-align: center;width:100%;">
+    <tr>
+    <thead style="background-color:#14175A;color:#fff;">
+        {% for th in ty %}
+	<th>{{th}}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+        <tbody>
+    {% for r in ystr %}
+        <tr>
+	{% for a in r %}
+	<td>{{a}}</td>
+	{% endfor %}
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <div style="text-align: center;font-size: 36px;margin-top: 100px;"><strong>
+    {% if error %}
+        {{ error }}
+    {% else %}
+        没有结果
+    {% endif %}
+     </strong></div>
+{% endif %}
+
+
+<!-- end .content --></div>
+
+
+  <div class="footer">
+    <p>powered by <a href="http://www.djangoproject.com/" target="_blank">Django</a></p>
+  </div>
+  <!-- end .container --></div>
+
+
+</body>
+</html>
