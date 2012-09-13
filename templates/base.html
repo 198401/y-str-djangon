@@ -47,7 +47,7 @@ function show_details(){
 	  {% csrf_token %} 
             <div style="text-align:center"><input type="submit" value="匹配"></div>
             <table>
-                {{ f.as_table }}
+	  {{ f.as_table }}
             </table>
             <div style="text-align:center"><input type="submit" value="匹配"></div>
         </form>
@@ -60,14 +60,14 @@ function show_details(){
     <input type="button" onclick="javascript:show_result();" value="详细数据" />
 </div>
 <div id="result_div">
-<label><textarea name="textarea" id="textarea" cols="45" rows="30" style="width:95%;height:450px;">{% if blue %}{% for b in blue %}
+<label><textarea name="textarea" id="textarea" cols="45" rows="30" style="width:95%;height:450px;">{% if ystr %}
 {% for r in ystr %}{{ r }}
 {% endfor %}
-{% endfor %}{% endif %}
+{% endif %}
 {% for r in ystr %}{{ r }}
 {% endfor %}</textarea></label>
 </div>
-<div id="details_div" style="display:none;">
+<div id="details_div" style="width:95%;height:450px;display:none;overflow:auto;">
 <table style="text-align: center;width:100%;">
     <tr>
     <thead style="background-color:#14175A;color:#fff;">
